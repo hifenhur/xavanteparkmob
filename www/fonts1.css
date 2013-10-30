@@ -1,0 +1,8 @@
+* { font-family: 'Rotis'; }
+
+@font-face {
+  font-family: 'Rotis';
+  font-style: normal;
+  font-weight: 400;
+  src: local('KiteOne'), local('KiteOne-Regular'), url(style/fonts/KiteOne.ttf) format('TrueType');
+}

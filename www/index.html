@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
+  <title>Shopping App</title>
+  <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+  <script type="text/javascript" src="js/jquery.cookie.js"></script>
+  <script type="text/javascript" src="js/core.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+      var cookie_name = 'remember_pwd';
+      var cookie_autenticated = "autenticated";
+      var cookie_lifetime = 365;
+      var cookie_path = '/';
+      var IsValid = false;
+
+      //Verifica se o cookie que guarda a senha existe
+      if($.cookie(cookie_name) != undefined){
+        //Se existir marca o checkbox
+        $("input#c1").prop('checked', true);
+        //Insere a senha no input
+        $("input#senha").val($.cookie(cookie_name));
+      }
+      else{
+        $("input#c1").prop('checked', false);
+      }
+
+
+      //Quando o botão de login for clicado
+      /*$("a#login").click(function(event) {
+         if(IsValid == false){
+             //Previne a repercução do evento para o navegador
+             event.preventDefault();
+
+             //Verifica se o campo login foi informado
+             if($("input#login").val().trim().length == 0){
+                AlertDialog(title[0],mensagem[1]);
+                return;
+             }
+
+             //Verifica se a senha foi informada
+             if($("input#senha").val().trim().length == 0){
+                AlertDialog(title[0],mensagem[0]);
+                return;
+             }
+
+             //Verifica se o checkbox de lembrar senha está ativado ou não. Se sim  
+             if($("input#c1").prop('checked') == true){
+                //Cria um cookie para lembrar a senha
+                $.cookie(cookie_name,$("input#senha").val(), { expires: cookie_lifetime, path: cookie_path});
+             }
+             //Se não
+             else{
+                //Remove o cookie com a senha
+                $.removeCookie(cookie_name, { path: cookie_path });
+             }
+             
+             /***
+             * Envia uma solicitação a url informada como parametro, utilizando o tipo de REQUEST na opção type.
+             * @param type string POST or GET
+             * @param url  string url do servidor para requisição em JSON
+             * @param array Array de dados (chave Tkey, valor Tvalue) para submissão ao server
+             * return [object] XmlHttpRequest com a resposta do servidor em JSON
+             */
+             /*console.log('disparado');
+             $.ajax({
+                  type: 'POST',
+                  url: 'http://localhost/phpServer/Logar.php',
+                  data: {
+                      type: 1,
+                      user: $("input#login").val(),
+                      pwd: $("input#senha").val()
+                  },
+                  /*contentType: "application/json; charset=utf-8",
+                  dataType: "json",*/
+
+                 /* success: function(data){
+                    if(data.response == true){
+                      IsValid = true;
+                      alert("asdasda");
+                      //Cria um cookie de autenticação
+                      $.cookie(cookie_autenticated,"true", {expires: cookie_lifetime, path: cookie_path });
+                      //$("a#login").get(0).click(); //Dispara o href do anchor
+                      window.location = $("a#login").prop('href');
+                    }
+                    else{
+                      AlertDialog(title[0],'Dados incorretos, tente novamente!');
+                    }
+                  }
+              });
+           }
+      });*/
+
+      $("input#c1").click(function(){
+        if($("input#c1")[0].checked == false){
+          $("input#senha").val('');
+          $.removeCookie(cookie_name, { path: cookie_path });
+        }
+      });
+      
+    });
+  </script>
+  <!-- Fonts -->
+  <link rel="stylesheet" href="fonts.css">
+  <!-- General Settings -->
+  <link rel="stylesheet" href="style/GeneralStyle.css">
+</head>
+</body>
+    <div class="header">
+        <h1> Estacionamento </h1>
+    </div>
+      <div class="content" align="center">
+        <form action="#" method="post" enctype="application/x-www-form-urlencoded">
+        <img src="imagens/logo.png" height="47" width="204"/>
+        <table>
+          <tr>
+            <td align="center" colspan="2">
+              <span id="firstline"> PARA ENTRAR E SAIR DO ESTACIONAMENTO</span>
+            </td>
+          </tr>
+          <tr>
+            <td align="center" colspan="2">
+              <span id="secondline"> Possui cadastro? Insira seus dados. </span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <input type="text" id="login" placeholder="Login" maxlength="20" autocomplete="off"/>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <input type="password" id="senha" placeholder="Senha" maxlength="20" autocomplete="off"/>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 48%;" class="checker">
+              <input type="checkbox" id="c1" name="cc" />
+              <label for="c1"><span></span>Lembrar Senha</label>
+            </td>
+            <td>
+              <a href="app.html" id="login" class="button" style="display:none">Acessar</a>
+              <input type="submit" value="Acessar" class="button"/>
+            </td>
+          </tr>
+       </table>
+     </form>
+     </div>
+       <div class="footer" align="center">
+        <span>Não cadastrado? <a href="cadastro.html" ><strong>Clique aqui para se cadastrar.</strong></a>
+       </div>
+       <div class="footer" align="center" id="outer-line" style="padding-bottom:20px">
+        <span>Esqueceu sua senha? <a href="#" ><strong>Clique aqui!</strong></a>
+       </div>
+      </div>
+      <div class="modal" align="center">
+        <div class="title">
+          <span id="line"></span>
+          <div class="loader">
+            <span></span>
+          </div>
+        </div>
+      </div>
+   </div>
+</body>
+</html>

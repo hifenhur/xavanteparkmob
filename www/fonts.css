@@ -1,0 +1,14 @@
+* { font-family: 'Rotis'; }
+
+@font-face {
+    font-family: 'Rotis';
+    src: url('style/fonts/rotis_sans_serif_extra_bold_75.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+  font-family: 'Rotis';
+    src: url('style/fonts/rotis_sans_serif_light_45.ttf');
+    font-weight: normal;
+    font-style: normal;
+}

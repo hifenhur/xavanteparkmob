@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, user-scalable=no" />
+      <title>Shopping App</title>
+      <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+      <script type="text/javascript" src="js/jquery.mask.min.js" ></script>
+      <script type="text/javascript" src="js/jquery.mCustomScrollbar.min.js"></script>
+      <script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
+      <script type="text/javascript" src="js/core.js"></script>
+      <script type="text/javascript">
+         $(document).ready(function() {
+         
+           //Global var
+           var items = [];
+		   //Global var utilizada para dizer se o scroll da biblioteca ja foi utilizada ou não.
+		   var addedScroll = false;
+         
+           //Definindo as mascaras
+           $("input#cellphone").mask('(00) 0000-0000');
+           $("input#phone").mask('(00) 0000-0000');
+           $("input#card-number").mask('0000 0000 0000 0000');
+           $("input#card-month").mask('00');
+           $("input#card-year").mask('0000');
+           $("input#card-secret-code").mask('000');
+         
+         
+           //Quando a imagem de adição for clicada
+           $("div#addcell table tr td img").click(function(){
+             //E o campo input ( para adição dos telefones ) ter conteudo maior que 0
+             if($("input#phone").val().trim().length > 0){
+               //Adiciona a lista de itens, uma <li>
+               $("ul#addedphones").append('<li class="addeditem"><span id="phone">'+$("div.content input#phone").val()+'</span><span id="btn-remover"><img src="/imagens/24/remover24.png"/></span><div style="clear:both"></div></li>');
+               //Zera o conteudo do input
+               $("div.content input[type=number]").val('');
+         
+               //Evento para eliminar os itens que forem cadastrados erroneamente
+               $("span#btn-remover").click(function(event) {
+                 $(this).parent().remove();
+               });      
+             }
+             else{
+               //Se o campo estiver vazio, exibe uma mensagem ao usuário
+               AlertDialog(title[0],mensagem[2],2800);
+             }
+           });
+         
+           //Cadastro
+           $("a#cadastrar").click(function(event){
+             //Previde a propagação do eveito para o browser
+             event.preventDefault;
+             
+             //Para cada input no documento, que não tenha o nome #phone
+             $.each($("input:not(input#phone)"),function(){
+               //Verifica se possui a prop class igual a classe 'no-css'
+               if($(this).prop('class') != 'no-css'){ 
+                 //Se não tiver, verifica se tem conteudo
+                 if($(this).val().trim().length == 0){
+                   //Caso não tenha, adiciona uma classe para chamar atenção
+                   $(this).addClass('error');
+                 }
+                 //Caso tenha ( e se tiver a calsse anterior, remove-a)
+                 else{
+                   //Remove a classe caso seja um erro conhecido
+                   $(this).removeClass('error');
+                 }
+               }
+         
+               //Se tem a classse 'no-css'
+               else{
+                 //Verifica se tem conteudo
+                 if($(this).val().trim().length == 0){
+                   //Se não tem adiciona uma classe para chamar atenção
+                    $(this).addClass('error2');
+                 }
+                 //Caso tenha 'erro corrigido'
+                 else{
+                   //Remove a classe
+                   $(this).removeClass('error2');
+                 }
+               }
+             });
+         	 
+             if($("input").prop('class') != 'error' && $("input").prop('class') != 'error2'){
+                  //Conversão da <ul> para json
+                  Li2Json();
+                  /***
+                  * Envia uma solicitação a url informada como parametro, utilizando o tipo de REQUEST na opção type.
+                  * @param type string POST or GET
+                  * @param url  string url do servidor para requisição em JSON
+                  * @param array Array de dados (chave Tkey, valor Tvalue) para submissão ao server
+                  * return [object] XmlHttpRequest com a resposta do servidor em JSON
+                  */
+                  $.ajax({
+                       type: 'POST',
+                       url: 'http://localhost/phpServer/Logar.php',
+                       data: {
+                           type: 2,
+                           user_name: $("input#login").val(),
+                           user_phone: $("input#cellphone").val(),
+                           senha: $("input#senha").val(),
+                           /*items,*/
+                           card_name: $("input#card-name").val(),
+                           card_number: $("input#card-number").val(),
+                           card_month: $("input#card-month").val(),
+                           card_year: $("input#card-year").val(),
+                           pin: $("input#card-secret-code").val()
+                       },
+                       /*contentType: "application/json; charset=utf-8",
+                       dataType: "json",*/
+                       success: function(data){
+                         if(data.response == true){
+                           AlertDialog(title[0],'Cadastro realizado!',null,true,'index.html');
+                         }
+                         else{
+                           AlertDialog(title[0],'Problemas ao processar o cadastro, tente novamente.');
+                         }
+                       }
+                   });
+             }
+           });
+         
+           $("input#card-month,input#card-year,input#card-secret-code:not(input#phone)").blur(function(){
+             if($(this).val().trim().length == 0){
+                 //Caso não tenha adiciona a classe de erro, para chamar atenção
+                  $(this).addClass('error2');
+               }
+               //Caso tenha conteudo 'erro corrigido'
+               else{
+                 //Remove a classe de erro
+                 $(this).removeClass('error2');
+               }
+           });
+         	
+           //Para todo input no documento, que perder o foco e que não tenha o id igual a #phone
+           $("input:not(input#phone,input#card-month,input#card-year,input#card-secret-code)").blur(function(){
+               //Verifica se tem conteudo
+               if($(this).val().trim().length == 0){
+                 //Caso não tenha adiciona a classe de erro, para chamar atenção
+                  $(this).addClass('error');
+               }
+               //Caso tenha conteudo 'erro corrigido'
+               else{
+                 //Remove a classe de erro
+                 $(this).removeClass('error');
+               }
+           });
+         	
+		   //Função para mostrar o termo de adesão de uso do sistema
+		   $("div#terms").click(function(e){
+			    $("div#terms input[type=checkbox]").prop('checked',false);
+			    //Adiciona classe de formatação a modal
+				$("div.title").addClass('terms-title');
+				$("div.title span#line").text("Termos");
+				$("div.loader").html("<p>Lorem ipsum dolor sit amet. Aliquam erat volutpat. Maecenas non tortor nulla, non malesuada velit.</p><p>Aliquam erat volutpat. Maecenas non tortor nulla, non malesuada velit. Nullam felis tellus, tristique nec egestas in, luctus sed diam. Suspendisse potenti. </p><p>Consectetur adipiscing elit. Nulla consectetur libero consectetur quam consequat nec tincidunt massa feugiat. Donec egestas mi turpis. Fusce adipiscing dui eu metus gravida vel facilisis ligula iaculis. Cras a rhoncus massa. Donec sed purus eget nunc placerat consequat.</p><p>Cras venenatis condimentum nibh a mollis. Duis id sapien nibh. Vivamus porttitor, felis quis blandit tincidunt, erat magna scelerisque urna, a faucibus erat nisl eget nisl. Aliquam consequat turpis id velit egestas a posuere orci semper. Mauris suscipit erat quis urna adipiscing ultricies. In hac habitasse platea dictumst. Nulla scelerisque lorem quis dui sagittis egestas.</p> <p>Etiam sed massa felis, aliquam pellentesque est.</p><p>Nam eu arcu at purus tincidunt pharetra ultrices at ipsum. Mauris urna nunc, vulputate quis gravida in, pharetra id mauris. Ut sit amet mi dictum nulla lobortis adipiscing quis a nulla. Etiam diam ante, imperdiet vel scelerisque eget, venenatis non eros. Praesent ipsum sem, eleifend ut gravida eget, tristique id orci. Nam adipiscing, sem in mattis vulputate, risus libero adipiscing risus, eu molestie mi justo eget nulla.</p> <p>Cras venenatis metus et urna egestas non laoreet orci rutrum. Pellentesque ullamcorper dictum nisl a tincidunt. Quisque et lacus quam, sed hendrerit mi. Mauris pretium, sapien et malesuada pulvinar, lorem leo viverra leo, et egestas mi nisl quis odio. </p><p>Aliquam erat volutpat. Sed urna arcu, tempus eu vulputate adipiscing, consectetur et orci. Vivamus congue, nunc vitae fringilla convallis, libero massa lacinia lorem, id convallis mauris elit ut leo. Nulla vel odio sem. Duis lorem urna, congue vitae rutrum sed, tincidunt vel tortor. In hac habitasse platea dictumst. Nunc vitae enim ante, vitae facilisis massa. Etiam sagittis sapien at nibh fermentum consectetur convallis lacus blandit.</p><p>the end.</p><div id='controls'><button id='sim' class='actionbuttons'><legend>Concordo</legend></button><button id='nao' class='actionbuttons'><legend>Discordo</legend></button>");
+				$("div.modal").addClass('js-modal').fadeIn('slow').css({'height':'100%'});
+				$("body").css('overflow','hidden');
+				if(addedScroll == false){
+					$("div.title").mCustomScrollbar({
+						scrollButtons:{
+							enable:true
+						},
+						theme:"dark-2"
+					});
+					addedScroll = true;
+				}
+				
+				   $("button#sim.actionbuttons").click(function(e){
+					    RemoverPersonalizacoes();
+		   				$("input[type=checkbox]").prop('checked',true);
+						alert('work');
+				   });
+				   
+				   $("div#controls button#nao").click(function(e){
+						RemoverPersonalizacoes();
+						$("input[type=checkbox]").prop('checked',false);
+		   		   });
+			});
+		   
+
+		   
+		   //Função para conversão da <ul> em um json
+           function Li2Json(){
+             $('ul#addedphones li span#phone').each(function() {
+               var $this = $(this);
+               var item = {phone: $this.html()};
+               items.push(item);
+             });
+           }
+		   
+		   function RemoverPersonalizacoes(){
+		   	 ClearModal();
+			 $("div.title").removeClass('terms-title');
+			 $("div.loader").html();
+			 $("body").css('overflow','visible');
+			 $("div.modal").fadeOut('fast');
+		   }
+         });
+      </script>
+      <!-- Fonts -->
+      <link rel="stylesheet" href="fonts.css">
+      <!-- General Settings -->
+      <link rel="stylesheet" href="style/GeneralStyle.css">
+      <link href="style/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css"/>
+      <style type="text/css">
+         input::-webkit-outer-spin-button,
+         input::-webkit-inner-spin-button{
+         /* display: none; <- Crashes Chrome on hover */
+         -webkit-appearance: none;
+         margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+         }
+		 div.title{
+			 background-color: #FFFFFF;
+			margin: 4% auto auto;
+			padding: 8px 3px;
+			width: 89%;
+		 }
+		 div.loader span{
+		 	font-size:0.8rem;
+			font-family:Georgia, "Times New Roman", Times, serif;
+		 }
+		 div.loader {
+			text-align: left;
+		}
+		
+		div#controls{
+			border-bottom: thin solid #999999;
+			border-top: thin solid #999999;
+			margin-bottom: 3%;
+			margin-top: 1%;
+			padding-bottom: 2%;
+			padding-top: 2%;
+			text-align: center;
+			width: 100%;
+		}
+		button:nth-child(1){
+			background-color: #134F67 !important;
+			margin-right:2%;
+		}
+		button:nth-child(2){
+			background-color: #671319 !important;
+		}
+		.actionbuttons{
+			border: medium none;
+			border-radius: 3px 3px 3px 3px;
+			color: #FFFFFF;
+			display: inline-block;
+			font-size: 1.1rem;
+			height: 20%;
+			padding: 8px;
+			width: 33%;
+			cursor:pointer;
+		}
+		@media only screen and (min-width: 320px) and (orientation:landscape)
+		{
+			div.title{
+				height: 86% !important;
+		 	}
+		}
+      </style>
+   </head>
+   </body>
+   <div class="header">
+      <a href="app.html" ><img src="imagens/voltar.png" height="16" width="16"/> Voltar</a>
+      <h1> Cadastro </h1>
+   </div>
+   <div class="body-container">
+      <form action="#" method="post" enctype="application/x-www-form-urlencoded">
+         <div class="content" align="center">
+            <!-- Expark Logo -->
+            <img src="imagens/logo.png" height="47" width="204"/>
+            <!-- Begin: table of contents -->
+            <table>
+               <tr>
+                  <td>
+                     <input type="text" id="login" placeholder="Nome Completo" maxlength="150" autocomplete="off"/>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <input type="text" id="email" placeholder="Email" maxlength="150" autocomplete="off"/>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <input type="text" id="cellphone" placeholder="Celular" maxlength="10" autocomplete="off"/>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <input type="password" id="senha" placeholder="Senha" maxlength="30" autocomplete="off"/>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                     <input type="password" id="retype-senha" placeholder="Confirmar Senha" maxlength="30" autocomplete="off"/>
+                  </td>
+               </tr>
+            </table>
+            <!-- end: table of contents -->
+            <!-- begin: div of phones -->
+            <div id="addcell" align="center">
+               <span>Adicionar outros usuários para a sua conta (parentes,funcionários,etc)</span>
+               <table>
+                  <tr>
+                     <td>
+                        <input type="text" pattern="[(]{1}[0-9]{2}[)]{1}[\s]{1}[0-9]{4}[-]{1}[0-9]{4}" id="phone" autocomplete="off" placeholder="Celular" class="number" title="Somente números."/>
+                     </td>
+                     <td style="background-color:#06050D;" align="center">
+                        <img src="imagens/24/adicionar24.png" height="24" width="24"/>
+                     </td>
+                  </tr>
+               </table>
+               <ul id="addedphones">
+               </ul>
+            </div>
+         </div>
+         <!-- end: div of phones -->
+         <!-- begin: div of credit card -->
+         <div id="creditcard" align="center">           
+            <table>
+               <tr>
+                  <td align="center" style="width: 50%;" colspan="2">
+                  	<span id="">Selecione o cartão </span>
+                  </td>
+                  <td align="center" style="width: 50%;">
+                  	<select id="selector">
+                       <option>Visa</option>
+                       <option>Mastercard</option>
+                       <option>Dinners</option>
+                       <option>Amex</option>
+                       <option>Hipercard</option>
+                    </select>
+                  </td>
+               </tr>
+               <tr>
+                  <td colspan="3">
+                     <input type="text" id="card-name" placeholder="Nome impresso no cartão" maxlength="150" autocomplete="off"/>
+                  </td>
+               </tr>
+               <tr>
+                  <td colspan="3">
+                     <input type="text" pattern="[0-9]{4}[\s]{1}[0-9]{4}[\s]{1}[0-9]{4}[\s]{1}[0-9]{4}" id="card-number" placeholder="Número do cartão" maxlength="19" autocomplete="off" class="number" title="Somente números."/>
+                  </td>
+               </tr
+            ></table>
+            <table>
+            	<tr>
+                  <td style="width:33.3%">
+                     <input type="number" id="card-month" placeholder="Mes" maxlength="2" autocomplete="off" class="no-css"/>
+                  </td>
+                  <td style="width:33.3%">
+                     <input type="number" id="card-year" placeholder="Ano" maxlength="4" autocomplete="off" class="no-css"/>
+                  </td>
+                  <td style="width:33.3%">
+                     <input type="number" id="card-secret-code" placeholder="Cód. Seg." maxlength="3" autocomplete="off" class="no-css"/>
+                  </td>
+               </tr>
+            </table>
+         </div>
+         <!-- end: div of credit card -->
+         <div id="terms" align="center">
+            <input type="checkbox" id="c1" name="cc" /><label for="c1">
+            <span tabindex="12"></span>Li e concordo com o Termo de Uso<br/>
+            e Adesão de Compra</label>
+         </div>
+         <div align="center">
+            <a href="#" class="button" id="cadastrar" style="display:none">Cadastrar</a>
+            <input type="submit" value="Acessar" class="button" id="submit"/>
+         </div>
+   </div>
+   </form>
+   </div>
+   <div class="modal" align="center">
+      <div class="title">
+         <span id="line"></span>
+         <div class="loader">
+            <span></span>
+         </div>
+      </div>
+   </div>
+   </body>
+</html>

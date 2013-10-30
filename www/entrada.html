@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
+  <title>Shopping App</title>
+  <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+  <script type="text/javascript" src="js/jquery.qrcode-0.7.0.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+		var w = 0;
+	  if($(window).height() < $(window).width()){
+		w = $(window).width();
+	  }
+	  else{
+	  	w = $(window).height();
+	  }
+		
+	  var size = w * 0.5;
+		
+		
+      $("div.content div#code").qrcode({
+		  render: 'canvas',
+		  size: size,
+		  text: "size doesn't matter",
+		  ecLevel: 'M',
+		  background: null,
+		  radius:0.3,
+		  mode: 0,
+		  fill: '#333',
+		  fontname: 'Verdana',
+		  fontcolor:'#FF9833',
+		  image: null});
+    });
+  </script>
+  <!-- Fonts -->
+  <link rel="stylesheet" href="fonts.css">
+  <!-- General Settings -->
+  <link rel="stylesheet" href="style/GeneralStyle.css">
+</head>
+</body>
+	<div class="header">
+    <a href="app.html" ><img src="imagens/voltar.png" height="16" width="16"/> Voltar</a>
+		<h1> Entrada </h1>
+	</div>
+  <div class="content" align="center">
+    <figure>
+      <img src="imagens/logo.png" height="47" width="204"/>
+    </figure>
+    <div id="qrcode">
+      <div id="code">
+      </div>
+    </div>
+    <div class="footer_qrcode">
+      Aproxime o código acima<br/> do leitor para abrir a cancela.
+    </div>
+  </div>
+  <div class="modal" align="center">
+    <div class="title">
+      <span id="line">Enviando solicitação</span>
+      <div class="loader">
+        <img src="imagens/loader.gif" style="heigth:40%" /><span>Por favor aguarde...</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

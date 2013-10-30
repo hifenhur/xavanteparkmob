@@ -1,0 +1,651 @@
+a
+{
+	color: #fff;
+}
+body,h1,h2,h3,h4,h5,h6,a,ul,li,button,input,table,tr,td
+{
+	font-family: Rotis;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	text-decoration: none;
+}
+div,img,a,ul,li,table,tr,td:not('.js-modal')
+{
+	moz-transition: ease all 0.5s;
+	ms-transition: ease all 0.5s;
+	o-transition: ease all 0.5s;
+	transition: ease all 0.5s;
+	webkit-transition: ease all 0.5s;
+}
+div.body-container{
+	margin: auto;
+    width: 93%;
+}
+*:not(div.modal)
+{
+	outline: 0;
+	transition:ease 0.1s;
+}
+.error
+{
+	animation-delay: 1s;
+	animation-direction: alternate;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-name: BordaAnimada;
+	animation-play-state: running;
+	animation-timing-function: ease;
+	background-image: url(../imagens/24/notvalid24.png) !important;
+	background-repeat: no-repeat !important;
+	border: thin solid rgba(255, 65, 103, 0.37) !important;
+}
+.error2
+{
+	animation-delay: 1s;
+	animation-direction: alternate;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-name: BordaAnimada;
+	animation-play-state: running;
+	animation-timing-function: ease;
+	border: thin solid rgba(255, 65, 103, 0.37) !important;
+}
+@keyframes BordaAnimada
+{
+	from
+	{
+		border-radius: 3px 3px 3px 3px;
+		box-shadow: 0 0 4px rgba(255, 255, 255, 0.27) inset;
+	}
+	to
+	{
+		border: thin solid rgba(255, 65, 103, 0.64) !important;
+		border-radius: 3px 3px 3px 3px;
+		box-shadow: 0 0 4px rgba(255, 255, 255, 0.51) inset;
+	}
+}
+div.header
+{
+	background: linear-gradient(to bottom, rgb(68, 73, 77) 0%, rgb(40, 45, 49) 98%);
+	background: -moz-linear-gradient(top, rgb(68, 73, 77) 0%, rgb(40, 45, 49) 98%);
+	background: -ms-linear-gradient(top, rgb(68, 73, 77) 0%, rgb(40, 45, 49) 98%);
+	background: -o-linear-gradient(top, rgb(68, 73, 77) 0%, rgb(40, 45, 49) 98%);
+	background: -webkit-linear-gradient(top, rgb(68, 73, 77) 0%, rgb(40, 45, 49) 98%);
+	height: 100%;
+	left: 0;
+	padding: 5px;
+	right: 0;
+	text-align: center;
+	top: 0;
+}
+div.header a
+{
+	background: linear-gradient(to bottom, rgb(68, 73, 77) 0%, rgb(0, 0, 0) 98%);
+	background: -moz-linear-gradient(top, rgb(68, 73, 77) 0%, rgb(0, 0, 0) 98%);
+	background: -ms-linear-gradient(top, rgb(68, 73, 77) 0%, rgb(0, 0, 0) 98%);
+	background: -o-linear-gradient(top, rgb(68, 73, 77) 0%, rgb(0, 0, 0) 98%);
+	background: -webkit-linear-gradient(top, rgb(68, 73, 77) 0%, rgb(0, 0, 0) 98%);
+	border: thin solid #666666;
+	border-radius: 2px 2px 2px 2px;
+	display: block;
+	float: left;
+	font-weight: bold;
+	line-height: 1.8rem;
+	margin-left: 0.3rem;
+	padding: 0 5px 0 3px;
+	vertical-align: bottom;
+}
+div.header img
+{
+	background-color: rgba(0, 0, 0, 0.35);
+	border-radius: 2px 2px 2px 2px;
+	box-shadow: 0 -1px 0 0 rgba(255, 255, 255, 0.57) inset;
+	padding: 2px;
+	vertical-align: sub;
+}
+div.header h1
+{
+	color: #FFFFFF;
+	display: block;
+	font-size: 1.6rem;
+	line-height: 2.1rem;
+	margin: 0;
+}
+body
+{
+	background-color: rgb(6,16,24);
+}
+div.content
+{
+	align-self: center;
+	height: 100%;
+	margin: 20px auto auto;
+	width: 91%;
+}
+div.content img[src='imagens/logo.png']
+{
+	height: auto;
+	margin-top: 2%;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0)
+{
+	div.content img[src='imagens/logo.png']
+	{
+		height: auto;
+		margin-top: 2%;
+		width: 70%;
+	}
+}
+div.content table
+{
+	border-spacing: 0.6rem;
+	margin-top: 4%;
+	width: 84%;
+}
+div.content tr
+{
+	margin: auto auto 3%;
+}
+div.content table tr td a.link-buttons
+{
+	background-color: #06050D;
+	display: block;
+	font-size: 0.85rem;
+	height: 50%;
+	line-height: 50px;
+	padding: 0 8px;
+	border-radius:3px;
+}
+div.content table tr td img
+{
+	margin-top: 0;
+    padding: 0 8px;
+    vertical-align: sub;
+}
+.modal
+{
+	background-color: rgba(0, 0, 0, 0.38);
+	display: none;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+div.modal{
+	background-color: rgba(0, 0, 0, 0.38);
+	display: none;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+.terms-title{
+	margin-bottom:20px;
+	padding:8px;
+	height:92%;
+	overflow:auto;	
+}
+div.title
+{
+	background-color: #FFFFFF;
+	margin: 50% auto auto;
+	padding: 8px 3px;
+	width: 74%;
+}
+div.title span#line
+{
+	border-bottom: 1px solid #3FB1BB;
+	color: #3FB1BB;
+	display: inline-block;
+	font-size: 1.5rem;
+	font-weight: bold;
+	width: 100%;
+}
+div.loader
+{
+	display: block;
+	line-height: 1.2rem;
+	margin-top: 3%;
+}
+div.loader span
+{
+	font-size: 1.6rem;
+	line-height: 1.2rem;
+	margin-left: 11px;
+	vertical-align: 0.8rem;
+}
+div.modal .loader img
+{
+	display: none;
+	height: auto;
+	width: 20%;
+}
+div#code
+{
+	background-color: #FFFFFF;
+	display: block;
+	margin: 8% 0 0;
+	padding: 10px;
+	width: 82%;
+	border-radius:3px;
+	transition: ease 0.2s;
+}
+div.footer_qrcode
+{
+	border-bottom: none;
+	color: #DDCA2A;
+	font-size: 1rem;
+	margin-top: 4%;
+	padding-bottom: 0;
+}
+div.content table tr td span#firstline,span#secondline
+{
+	color: #ccc;
+	font-size: 0.9rem;
+}
+div.content table tr td span#secondline
+{
+	font-size: 0.8rem;
+}
+div.content input[type=password],input[type=text],input[type=number]
+{
+	background-color: #06050D;
+	background-image: url(../imagens/24/lock24.png);
+	background-position: 11px 10px;
+	background-repeat: no-repeat;
+	border: medium none;
+	border-radius:3px;
+	color: #FFFFFF;
+	font-size: 1.3rem;
+	padding: 11px 11px 10px 43px;
+	width: 78%;
+}
+div.content input[type=text]
+{
+	background-image: url(../imagens/24/user24.png);
+}
+input[type="checkbox"]
+{
+	display: none;
+}
+input[type="checkbox"] + label span
+{
+	background: url(../imagens/check_radio_sheet.png) left top no-repeat;
+	cursor: pointer;
+	display: inline-block;
+	height: 19px;
+	margin: -1px 4px 0 0;
+	vertical-align: middle;
+	width: 19px;
+}
+input[type="checkbox"]:checked + label span
+{
+	background: url(../imagens/check_radio_sheet.png) -19px top no-repeat;
+}
+label
+{
+	color: #ccc;
+	cursor:pointer;
+	font-size: 0.78rem;
+}
+a.button
+{
+	background-color: rgb(19,79,103) !important;
+	border-radius: 2px;
+	text-align: center;
+}
+div.content div.footer
+{
+	border-top: thin solid #999999;
+	color: #CCCCCC;
+	font-size: 0.9rem;
+	margin-top: 8%;
+	padding-bottom: 0;
+	padding-top: 5%;
+}
+div.content input
+{
+	font-size: 0.9rem !important;
+	padding: 16px 11px 10px 43px !important;
+}
+div.content input#retype-senha
+{
+	background-image: url(../imagens/24/key24.png);
+}
+div.content input#cellphone,input#phone
+{
+	background-image: url(../imagens/24/mobile24.png);
+}
+div.content input#email
+{
+	background-image: url(../imagens/24/email24.png);
+}
+div#addcell
+{
+	border-top: thin solid rgba(112, 112, 112, 0.81);
+	margin-top: 5%;
+	padding-top: 3%;
+}
+div#addcell span
+{
+	color: #fff;
+	font-size: 0.9rem;
+}
+div#addcell input[type=number]
+{
+	background-image: url(../imagens/24/mobile24.png);
+	border-radius: 4px;
+}
+div#addcell img
+{
+	cursor: pointer;
+	margin-left: 5px;
+	vertical-align: sub;
+}
+div#addcell ul
+{
+	width: 78%;
+}
+div#addcell ul span
+{
+	background-color: #32353C;
+	color: #FFFFFF;
+	float: left;
+	font-size: 1rem;
+	padding: 2px 33px;
+}
+div#addcell ul span#btn-remover
+{
+	background-color: #fff;
+	color: rgb(58,85,92);
+	cursor: pointer;
+	float: right;
+	padding: 1px;
+}
+div#addcell table{
+	border-spacing:0px !important;
+}
+.addeditem
+{
+	border-bottom: thin solid #ccc;
+	padding-bottom: 2%;
+	padding-top: 2%;
+}
+div#creditcard
+{
+	margin: 3% auto auto;
+	width: 100%;
+}
+div#creditcard span
+{
+	color: #CCCCCC;
+	font-size:0.95rem;
+}
+div#creditcard select
+{
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: rgb(47,88,110);
+	background-image: url("../imagens/24/select-down24.png");
+	background-origin: padding-box;
+	background-position: right center;
+	background-repeat: no-repeat;
+	background-size: auto auto;
+	border: 1px solid #2F586E;
+	border-radius: 2px 2px 2px 2px;
+	color: #fff;
+	margin-left: 4%;
+	font-size: 1rem;
+	overflow: hidden;
+	padding: 2px;
+	webkit-appearance: none;
+	width: 98px;
+}
+div#creditcard table
+{
+	border-spacing: 0.5rem;
+    margin: 0% auto auto;
+    width: 84%;
+}
+div#creditcard table input
+{
+	font-size: 0.9rem !important;
+}
+div#creditcard .no-css
+{
+	background-image: none;
+    margin-top: -10%;
+    padding: 10px 0 10px 10px;
+    width: 81%;
+}
+div#creditcard table input#card-name
+{
+	background-image: url(../imagens/24/user24.png);
+}
+div#creditcard table input#card-number,input#card-name
+{
+	background-image: url(../imagens/24/creditcard24.png);
+	background-position: 8px 7px;
+	width: 75%;
+}
+div#terms
+{
+	align-items: center;
+	color: #fff;
+	margin-top: 3%;
+	text-decoration: underline;
+}
+input[type=submit].button
+{
+	background-color: #134F67 !important;
+	border: thin solid #000000;
+	border-radius: 3px 3px 3px 3px;
+	color: #FFFFFF;
+	cursor:pointer;
+	display: block;
+	font-size: 0.9rem !important;
+	height: 50%;
+	padding: 10px !important;
+	padding: 11px;
+	width: 93%;
+}
+input#submit{
+	margin-top:5%;
+	width: 58%;
+}
+a#cadastrar
+{
+	margin-bottom: 9%;
+	margin-top: 9%;
+	width: 57%;
+}
+div#background-div
+{
+	background-color: #FFFFFF;
+	border-radius: 6px 6px 6px 6px;
+	margin-bottom: 20%;
+	margin-top: 5%;
+	padding: 3px;
+	width: 85%;
+}
+div#background-div table
+{
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-size: 0.7rem;
+	padding-bottom: 20px;
+}
+table tr td.checker
+{
+	padding-left: 3%;
+}
+div.footer{
+	color: #CCCCCC;
+	font-size: 0.8rem;
+    margin-top: 10%;
+}
+@media only screen and (min-width: 320px) and (orientation:landscape)
+{	
+	div#creditcard .no-css {
+		width: 68%;
+	}
+	
+	div.footer{
+		margin-top: 6%;
+	}
+	input.button[type="submit"]{
+		width: 85%;
+	}
+	
+	div#acesso{
+		width:70%;	
+	}
+	div#code{
+		width:55%;	
+	}
+}
+@media only screen and (min-width: 360px)
+{
+	input[type=submit].button
+	{
+		font-size: 1rem !important;
+	}
+	div.content table tr td span#firstline, span#secondline
+	{
+		font-size: 0.99rem;
+	}
+	div.content table tr td span#secondline
+	{
+		font-size: 0.9rem;
+	}
+	div.content input
+	{
+		font-size: 1rem !important;
+	}
+	div#addcell span{
+		font-size: 0.9rem;
+	}
+	div#creditcard span{
+		font-size:0.9rem;
+	}
+	div#creditcard select{
+		width: 110px;
+	}
+	label
+	{
+		font-size: 1rem;
+	}
+	div.footer
+	{
+		font-size: 1rem;
+		margin-top: 29%;
+	}
+	div#outer-line
+	{
+		margin-top: 7%;
+	}
+	table tr td.checker
+	{
+		padding-left: 6%;
+	}
+	
+}
+@media only screen and (min-width: 360px) and (orientation:landscape)
+{
+	div.footer {
+    	margin-top: 6%;
+	}
+	input.button[type="submit"] {
+		width: 77%;
+	}
+}
+@media only screen and (min-width: 768px)
+{
+	div.content
+	{
+		align-self: center;
+		height: auto;
+		margin: 10% auto auto;
+		width: 75%;
+	}
+	div.content table tr td span#firstline, span#secondline
+	{
+		font-size: 1.4rem;
+	}
+	div.content table tr td span#secondline
+	{
+		font-size: 1.2rem;
+	}
+	div.content input[type="password"], input[type="text"], input[type="number"]
+	{
+		background-position: 11px 13px;
+		width: 85%;
+	}
+	div#addcell span{
+		font-size: 1.2rem;
+	}
+	div#creditcard span{
+		font-size: 1.1rem;
+	}
+	div.content input, div#creditcard table tr td input
+	{
+		font-size: 1.2rem !important;
+	}
+	input[type=submit].button
+	{
+		font-size: 1.3rem !important;
+		padding: 16px !important;
+	}
+	table tr td.checker
+	{
+		padding-left: 9%;
+	}
+	label
+	{
+		font-size: 1.2rem;
+	}
+	div.footer
+	{
+		font-size: 1.3rem;
+   		margin-top: 18%;
+	}
+	div#creditcard{
+		align-self: center;
+		height: auto;
+		margin: 2% auto auto;
+		width: 75%;
+	}
+	div#creditcard table tr td input{
+		background-position: 8px 9px !important;
+	}
+	div#creditcard .no-css
+	{
+		background-image: none;
+		margin-top: -3%;
+		padding: 10px 0 10px 10px;
+		width: 81%;
+	}
+}
+@media only screen and (min-width: 768px) and (orientation:landscape)
+{
+	div.footer {
+    	margin-top: 7%;
+	}
+}
+@media only screen and (min-width: 800px) and (orientation:landscape)
+{
+	input.button[type="submit"] {
+		width: 84% !important;
+	}
+}
+@media only screen and (min-width: 980px)
+{
+	input.button[type=submit]
+	{
+		width: 88%;
+	}
+}
+@media only screen and (min-width: 1280px)
+{
+}

@@ -1,0 +1,21 @@
+input::-moz-placeholder, textarea::-moz-placeholder {
+    color: #858585;
+    opacity: 1;
+}
+
+input[type="text"], input[type="password"], input[type="email"], 
+input[type="tel"], input[type="search"], input[type="url"], 
+input[type="number"], textarea {
+	-moz-box-sizing: border-box;
+    border: 0.1rem solid #CCCCCC;
+    border-radius: 0.3rem 0.3rem 0.3rem 0.3rem;
+    box-shadow: none;
+    display: block;
+    font-size: 1.8rem;
+    height: 4rem;
+    line-height: 4rem;
+    overflow: hidden;
+    padding: 0 1.2rem;
+    resize: none;
+    width: 100%;
+}
